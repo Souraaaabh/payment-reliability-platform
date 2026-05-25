@@ -1,0 +1,201 @@
+{
+  "info": {
+    "name": "Payment Reliability Platform",
+    "_postman_id": "46e54f2c-f25d-4dad-bf70-a8456eb2d808",
+    "description": "Postman collection for the distributed payment reliability platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"user-123\",\n  \"amount\": 249.99,\n  \"idempotencyKey\": \"idem-001\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/payments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "payments"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Payment By Transaction Id",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments/{{transactionId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "payments",
+            "{{transactionId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List All Payments",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "payments"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Payments By User",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/payments?userId=user-123",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "payments"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "user-123"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Analyze Failure",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"{{transactionId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/analyze-failure",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "analyze-failure"
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Generate Incident Report",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"minutes\": 30\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/generate-incident-report",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "generate-incident-report"
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Summarize Logs",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"logs\": \"2026-05-23T10:01:00Z INFO Kafka event consumed for transactionId: txn_123\\n2026-05-23T10:01:03Z WARN Payment processing failure for transactionId: txn_123, reason: BANK_TIMEOUT\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/summarize-logs",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "summarize-logs"
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Operational Query",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"Why are payments failing?\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/query",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "query"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "transactionId",
+      "value": "txn_replace_me"
+    }
+  ]
+}

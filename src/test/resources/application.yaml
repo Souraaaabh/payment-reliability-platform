@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:paymentdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  flyway:
+    enabled: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: payment-service-consumer-group
+    admin:
+      auto-create: false
+    listener:
+      auto-startup: false
+  ai:
+    model:
+      chat: ollama
+    ollama:
+      base-url: http://localhost:11434
+      init:
+        pull-model-strategy: never
+      chat:
+        options:
+          model: qwen3:4b
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+app:
+  kafka:
+    payment-created-topic: payment-created-events
+    auto-create-topic: false
+  cache:
+    payment-ttl: 10m
+  rate-limit:
+    payment-create-limit: 5
+    payment-create-window: 60s
